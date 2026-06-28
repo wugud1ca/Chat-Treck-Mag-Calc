@@ -16,7 +16,7 @@ export default function App() {
     {
       id: "welcome",
       role: "assistant",
-      content: "Приветствую! Я ИИ Агент ВЭД логистической компании **Express Today**. 🇨🇳✈️🇷🇺\n\nЯ знаю всё о доставке сборных грузов (карго и белая доставка) и выкупе товаров с китайских маркетплейсов **1688, Taobao и Alibaba**.\n\nЧем я могу помочь вам сегодня?\n- 📈 Рассчитать стоимость доставки по весу/объему\n- 🛍 Рассказать про комиссию и условия выкупа с 1688\n- 🛡 Помочь с выбором надежной упаковки (обрешетка, паллет)\n\n*Вы можете использовать калькулятор ниже или выбрать товар из витрины, чтобы я автоматически сделал расчет!*",
+      content: "Приветствую! Я ИИ Агент ВЭД логистической компании **Express2day**. 🇨🇳✈️🇷🇺\n\nЯ знаю всё о доставке сборных грузов (карго и белая доставка) и выкупе товаров с китайских маркетплейсов **1688, Taobao и Alibaba**.\n\nЧем я могу помочь вам сегодня?\n- 📈 Рассчитать стоимость доставки по весу/объему\n- 🛍 Рассказать про комиссию и условия выкупа с 1688\n- 🛡 Помочь с выбором надежной упаковки (обрешетка, паллет)\n\n*Вы можете использовать калькулятор ниже или выбрать товар из витрины, чтобы я автоматически сделал расчет!*",
       timestamp: new Date()
     }
   ]);
@@ -254,10 +254,10 @@ export default function App() {
   });
 
   return (
-    <div className="min-h-screen bg-[#fafbfc] flex flex-col justify-between font-sans selection:bg-blue-100 selection:text-blue-900 pb-12">
+    <div className="min-h-screen bg-[#fafbfc] flex flex-col justify-between font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-12">
       
       {/* Visual Top Decorative line */}
-      <div className="h-1.5 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500" />
+      <div className="h-1.5 w-full bg-gradient-to-r from-emerald-800 via-emerald-600 to-amber-500" />
 
       {/* Main Container */}
       <div className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 lg:px-8 pt-6 flex-1 flex flex-col gap-6">
@@ -265,15 +265,15 @@ export default function App() {
         {/* Header Section */}
         <header className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 bg-white border border-slate-200/80 rounded-[2rem] p-6 shadow-sm">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-extrabold text-2xl tracking-tighter shadow-md shadow-blue-500/20">
-              ET
+            <div className="w-12 h-12 bg-emerald-800 border border-amber-500/20 rounded-2xl flex items-center justify-center text-amber-400 font-extrabold text-2xl tracking-tighter shadow-md shadow-emerald-800/10 select-none">
+              E2
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight font-display">
-                  Express Today
+                  Express2day
                 </h1>
-                <span className="hidden sm:inline-block px-2.5 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded-full uppercase tracking-wider border border-blue-100">
+                <span className="hidden sm:inline-block px-2.5 py-0.5 bg-emerald-50 text-emerald-800 text-[10px] font-bold rounded-full uppercase tracking-wider border border-emerald-100">
                   Официальные Тарифы
                 </span>
               </div>
@@ -293,7 +293,7 @@ export default function App() {
                 </div>
                 <div className="w-px h-3 bg-slate-200" />
                 <div>
-                  Доллар: <span className="text-blue-600 font-bold">92.50 ₽</span>
+                  Доллар: <span className="text-emerald-700 font-bold">92.50 ₽</span>
                 </div>
               </div>
 
@@ -336,7 +336,7 @@ export default function App() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
               <a 
                 href="tel:+74951200941" 
-                className="flex items-center justify-center gap-2 px-3 py-2 border border-slate-150 rounded-xl text-xs sm:text-sm font-bold text-slate-800 hover:text-blue-600 bg-slate-50/50 hover:bg-white transition-all"
+                className="flex items-center justify-center gap-2 px-3 py-2 border border-slate-150 rounded-xl text-xs sm:text-sm font-bold text-slate-800 hover:text-emerald-700 bg-slate-50/50 hover:bg-white transition-all"
               >
                 <Phone className="h-3.5 w-3.5 text-slate-500" />
                 <span>+7 (495) 120-09-41</span>
@@ -358,13 +358,16 @@ export default function App() {
         <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
           {/* LEFT BENTO BLOCK: AI VED Chat (col-span-7 or 8 on large screens) */}
-          <section ref={chatContainerRef} className="lg:col-span-7 xl:col-span-8 flex flex-col bg-[#e7ebf0] border border-slate-300 rounded-[2rem] sm:rounded-[2.5rem] shadow-sm overflow-hidden h-[600px] sm:h-[680px] lg:h-[720px] transition-all">
+          <div ref={chatContainerRef} className="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
+            
+            {/* Chat Box Container */}
+            <div className="flex flex-col bg-[#e3eae4] border border-slate-300 rounded-[2rem] sm:rounded-[2.5rem] shadow-sm overflow-hidden h-[600px] sm:h-[680px] lg:h-[720px] transition-all">
             
             {/* Chat header: TG style */}
             <div className="p-3.5 sm:p-4 border-b border-slate-200/60 bg-white flex items-center justify-between shadow-sm shrink-0">
               <div className="flex items-center gap-2.5 sm:gap-3.5">
                 <div className="relative">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-sm text-white text-xl sm:text-2xl select-none">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-emerald-800 to-emerald-600 flex items-center justify-center shadow-sm text-white text-xl sm:text-2xl select-none">
                     🤖
                   </div>
                   <div className="absolute -bottom-1 -right-1 w-3 sm:w-3.5 h-3 sm:h-3.5 bg-emerald-500 border-2 border-white rounded-full animate-pulse-slow"></div>
@@ -390,7 +393,7 @@ export default function App() {
                   <button 
                     type="button"
                     onClick={() => setFontSizeMode("standard")}
-                    className={`px-1.5 sm:px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg transition-all cursor-pointer ${fontSizeMode === "standard" ? "bg-white text-blue-600 shadow-sm" : "text-slate-400 hover:text-slate-700"}`}
+                    className={`px-1.5 sm:px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg transition-all cursor-pointer ${fontSizeMode === "standard" ? "bg-white text-emerald-800 shadow-sm" : "text-slate-400 hover:text-slate-700"}`}
                     title="Стандартный шрифт"
                   >
                     А
@@ -398,7 +401,7 @@ export default function App() {
                   <button 
                     type="button"
                     onClick={() => setFontSizeMode("large")}
-                    className={`px-1.5 sm:px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg transition-all cursor-pointer ${fontSizeMode === "large" ? "bg-white text-blue-600 shadow-sm" : "text-slate-400 hover:text-slate-700"}`}
+                    className={`px-1.5 sm:px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg transition-all cursor-pointer ${fontSizeMode === "large" ? "bg-white text-emerald-800 shadow-sm" : "text-slate-400 hover:text-slate-700"}`}
                     title="Крупный шрифт"
                   >
                     А+
@@ -406,7 +409,7 @@ export default function App() {
                   <button 
                     type="button"
                     onClick={() => setFontSizeMode("extra")}
-                    className={`px-1.5 sm:px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg transition-all cursor-pointer ${fontSizeMode === "extra" ? "bg-white text-blue-600 shadow-sm" : "text-slate-400 hover:text-slate-700"}`}
+                    className={`px-1.5 sm:px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg transition-all cursor-pointer ${fontSizeMode === "extra" ? "bg-white text-emerald-800 shadow-sm" : "text-slate-400 hover:text-slate-700"}`}
                     title="Очень крупный шрифт"
                   >
                     А++
@@ -437,7 +440,7 @@ export default function App() {
                     <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 shadow-sm ${
                       isUser 
                         ? "bg-emerald-600 text-white" 
-                        : "bg-white text-blue-600 border border-slate-200"
+                        : "bg-white text-emerald-700 border border-slate-200"
                     }`}>
                       {isUser ? <User className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
                     </div>
@@ -461,7 +464,7 @@ export default function App() {
                               elements.push(line.substring(lastIndex, match.index));
                             }
                             elements.push(
-                              <strong key={match.index} className="text-slate-950 font-extrabold underline decoration-blue-500/20 underline-offset-2">
+                              <strong key={match.index} className="text-slate-950 font-extrabold underline decoration-emerald-500/30 underline-offset-2">
                                 {match[1]}
                               </strong>
                             );
@@ -490,33 +493,19 @@ export default function App() {
               {isTyping && (
                 <div className="flex gap-2 sm:gap-3 max-w-[80%] mr-auto">
                   <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white border border-slate-200 flex items-center justify-center shrink-0 shadow-sm">
-                    <Bot className="h-3.5 w-3.5 text-blue-600 animate-pulse" />
+                    <Bot className="h-3.5 w-3.5 text-emerald-700 animate-pulse" />
                   </div>
                   <div className="bg-white text-slate-500 border border-slate-200/50 px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-2">
                     <span className="text-xs font-semibold">ИИ ВЭД Агент думает...</span>
                     <span className="flex gap-1">
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-bounce [animation-delay:-0.3s]" />
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-bounce [animation-delay:-0.15s]" />
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-bounce" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:-0.3s]" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:-0.15s]" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-bounce" />
                     </span>
                   </div>
                 </div>
               )}
               <div ref={chatEndRef} />
-            </div>
-
-            {/* Quick Suggested Questions Bar */}
-            <div className="p-2 sm:p-3 border-t border-slate-200 bg-slate-50/90 flex gap-1.5 overflow-x-auto scrollbar-none shrink-0 shadow-sm items-center">
-              <span className="text-[10px] text-slate-400 font-extrabold shrink-0 uppercase tracking-wider pl-1 select-none">Частые:</span>
-              {SUGGESTED_QUESTIONS.map((question, qIdx) => (
-                <button
-                  key={qIdx}
-                  onClick={() => sendMessage(question)}
-                  className="px-2.5 py-1 bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/20 text-[10px] sm:text-xs text-slate-700 font-medium rounded-full shrink-0 transition-colors cursor-pointer shadow-sm active:scale-95"
-                >
-                  {question}
-                </button>
-              ))}
             </div>
 
             {/* Chat Input form */}
@@ -526,7 +515,7 @@ export default function App() {
                   e.preventDefault();
                   sendMessage();
                 }}
-                className="flex gap-1.5 sm:gap-2 p-1.5 sm:p-2 bg-slate-50 border border-slate-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 rounded-xl sm:rounded-2xl transition-all"
+                className="flex gap-1.5 sm:gap-2 p-1.5 sm:p-2 bg-slate-50 border border-slate-200 focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-100 rounded-xl sm:rounded-2xl transition-all"
               >
                 <input 
                   type="text" 
@@ -538,14 +527,66 @@ export default function App() {
                 <button 
                   type="submit" 
                   disabled={!inputText.trim() || isTyping}
-                  className="bg-blue-600 hover:bg-blue-500 active:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold rounded-lg sm:rounded-xl px-3 sm:px-5 py-1.5 sm:py-2 text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
+                  className="bg-emerald-800 hover:bg-emerald-700 active:bg-emerald-900 disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold rounded-lg sm:rounded-xl px-3 sm:px-5 py-1.5 sm:py-2 text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
                 >
                   <span className="hidden sm:inline">Отправить</span>
                   <Send className="h-3.5 w-3.5" />
                 </button>
               </form>
             </div>
-          </section>
+          </div>
+
+          {/* Popular Questions & Customs Inquiries from Last Month */}
+          <div className="bg-white border border-slate-200 rounded-[2rem] p-6 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2.5 bg-emerald-50 rounded-xl text-emerald-800">
+                  <HelpCircle className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-sm sm:text-base font-display">
+                    Аналитика таможенных запросов за прошлый месяц
+                  </h3>
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 leading-none mt-1">
+                    Популярные темы обращений в ВЭД-поддержку Express2day
+                  </p>
+                </div>
+              </div>
+              <span className="self-start sm:self-center px-2.5 py-1 bg-amber-50 border border-amber-200/40 text-amber-700 text-[9px] sm:text-[10px] font-bold rounded-full uppercase tracking-wider flex items-center gap-1">
+                <Sparkles className="h-3 w-3 text-amber-500 animate-pulse" />
+                Горячие темы
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {SUGGESTED_QUESTIONS.map((faq, index) => (
+                <button
+                  key={index}
+                  onClick={() => sendMessage(faq.question)}
+                  className="flex flex-col items-start text-left p-3.5 bg-slate-50 hover:bg-emerald-50/40 border border-slate-150 hover:border-emerald-200/60 rounded-2xl transition-all cursor-pointer group active:scale-[0.98]"
+                >
+                  <div className="flex items-center justify-between w-full mb-2">
+                    <span className={`px-2 py-0.5 rounded text-[9px] font-extrabold tracking-wider uppercase ${
+                      faq.category === 'Таможня' ? 'bg-emerald-100/75 text-emerald-800' :
+                      faq.category === 'Оплата' ? 'bg-amber-100 text-amber-800' :
+                      faq.category === 'Честный Знак' ? 'bg-blue-100 text-blue-800' :
+                      faq.category === 'Выкуп' ? 'bg-orange-100 text-orange-800' :
+                      'bg-purple-100 text-purple-800'
+                    }`}>
+                      {faq.category}
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-400 font-semibold flex items-center gap-1">
+                      🔥 {faq.clicks} запросов
+                    </span>
+                  </div>
+                  <p className="text-xs font-bold text-slate-800 group-hover:text-emerald-800 transition-colors leading-snug line-clamp-2">
+                    {faq.question}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
 
           {/* RIGHT BENTO BLOCK 1: Premium Promo Banner (col-span-4) */}
           <section className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6">
@@ -592,11 +633,11 @@ export default function App() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <div className="p-2 bg-blue-50 rounded-xl text-blue-600">
+                    <div className="p-2 bg-emerald-50 rounded-xl text-emerald-800">
                       <Truck className="h-5 w-5" />
                     </div>
                     <h3 className="font-bold text-slate-900 text-base font-display">
-                      Трекинг накладных ET
+                      Трекинг накладных E2
                     </h3>
                   </div>
                   <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider bg-emerald-50 px-2 py-0.5 rounded-full">
@@ -610,7 +651,7 @@ export default function App() {
                     value={trackNumber}
                     onChange={(e) => setTrackNumber(e.target.value)}
                     placeholder="Например: ET-2026-8841"
-                    className="flex-1 min-w-0 bg-slate-50 border border-slate-200 focus:outline-none focus:border-blue-500 px-4 py-2.5 rounded-xl text-sm font-mono text-slate-800 w-full"
+                    className="flex-1 min-w-0 bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 px-4 py-2.5 rounded-xl text-sm font-mono text-slate-800 w-full"
                   />
                   <button 
                     onClick={() => handleTrackSearch()}
@@ -690,7 +731,7 @@ export default function App() {
                       placeholder="+7 (999) 000-00-00"
                       value={quickCallbackPhone}
                       onChange={(e) => setQuickCallbackPhone(e.target.value)}
-                      className="flex-1 min-w-0 px-3.5 py-2.5 bg-slate-50 border border-slate-200 focus:outline-none focus:border-blue-500 rounded-xl text-xs font-mono text-slate-800 w-full"
+                      className="flex-1 min-w-0 px-3.5 py-2.5 bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 rounded-xl text-xs font-mono text-slate-800 w-full"
                     />
                     <button 
                       type="submit"
@@ -702,7 +743,7 @@ export default function App() {
                   </div>
                   {quickCallbackSubmitted && (
                     <div className="text-[10px] text-emerald-600 font-bold flex items-center gap-1.5 mt-1 animate-pulse">
-                      <Check className="h-3 w-3" /> Заявка передана логисту Express Today!
+                      <Check className="h-3 w-3" /> Заявка передана логисту Express2day!
                     </div>
                   )}
                 </form>
@@ -742,7 +783,7 @@ export default function App() {
                   max="30"
                   value={yuanRate}
                   onChange={(e) => setYuanRate(Math.max(1, Number(e.target.value)))}
-                  className="w-16 h-8 text-center text-sm font-bold font-mono bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:border-blue-500"
+                  className="w-16 h-8 text-center text-sm font-bold font-mono bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:border-emerald-500"
                 />
                 <span className="text-xs font-bold text-slate-800">₽</span>
               </div>
@@ -785,7 +826,7 @@ export default function App() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Поиск по названию тренда..."
-                className="w-full h-10 pl-10 pr-4 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:border-blue-500 focus:bg-white text-xs text-slate-800"
+                className="w-full h-10 pl-10 pr-4 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:border-emerald-500 focus:bg-white text-xs text-slate-800"
               />
             </div>
           </div>
@@ -812,12 +853,12 @@ export default function App() {
                       <span className="absolute top-3 left-3 px-2.5 py-1 bg-white/95 text-[10px] font-bold text-slate-800 rounded-lg shadow-sm border border-slate-100">
                         {prod.category}
                       </span>
-                      <span className="absolute bottom-3 right-3 px-2 py-0.5 bg-blue-600 text-white text-[10px] font-mono font-bold rounded">
+                      <span className="absolute bottom-3 right-3 px-2 py-0.5 bg-emerald-800 text-white text-[10px] font-mono font-bold rounded">
                         ★ {prod.rating}
                       </span>
                     </div>
 
-                    <h4 className="font-bold text-slate-900 text-sm leading-snug group-hover:text-blue-600 transition-colors">
+                    <h4 className="font-bold text-slate-900 text-sm leading-snug group-hover:text-emerald-700 transition-colors">
                       {prod.title}
                     </h4>
 
@@ -855,12 +896,12 @@ export default function App() {
                       onClick={() => handleProductCalculate(prod)}
                       className="flex-1 py-2.5 bg-white hover:bg-slate-100 border border-slate-200 font-bold text-[11px] text-slate-700 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                      <Sparkles className="h-3 w-3 text-indigo-500" />
+                      <Sparkles className="h-3 w-3 text-amber-500" />
                       <span>Обсудить в ИИ</span>
                     </button>
                     <button
                       onClick={() => openLeadForProduct(prod)}
-                      className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-[11px] rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer shadow-sm"
+                      className="flex-1 py-2.5 bg-emerald-800 hover:bg-emerald-700 active:bg-emerald-900 text-white font-bold text-[11px] rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer shadow-sm"
                     >
                       <span>Заказать выкуп</span>
                       <ChevronRight className="h-3.5 w-3.5" />
@@ -884,11 +925,11 @@ export default function App() {
           <TariffCalculator onSendToChat={handleCalculatorData} />
         </section>
 
-        {/* WIDE SECTION 3: Why choose Express Today Bento-like informational highlights */}
+        {/* WIDE SECTION 3: Why choose Express2day Bento-like informational highlights */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
           
           <div className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm flex items-start gap-4">
-            <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl shrink-0">
+            <div className="p-3 bg-emerald-50 text-emerald-800 rounded-2xl shrink-0">
               <ShieldAlert className="h-6 w-6" />
             </div>
             <div>
@@ -916,7 +957,7 @@ export default function App() {
           </div>
 
           <div className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm flex items-start gap-4">
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl shrink-0">
+            <div className="p-3 bg-emerald-50 text-emerald-800 rounded-2xl shrink-0">
               <CheckCircle2 className="h-6 w-6" />
             </div>
             <div>
@@ -947,6 +988,7 @@ export default function App() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3.5 py-2 bg-sky-50 hover:bg-sky-100 border border-sky-200/50 text-[#229ED9] rounded-2xl text-xs font-bold transition-all active:scale-95 shadow-sm"
+                title="Написать в Telegram"
               >
                 <Send className="h-3.5 w-3.5" />
                 <span>Telegram Bot</span>
@@ -956,6 +998,7 @@ export default function App() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/50 text-[#25D366] rounded-2xl text-xs font-bold transition-all active:scale-95 shadow-sm"
+                title="Написать в WhatsApp"
               >
                 <MessageSquare className="h-3.5 w-3.5" />
                 <span>WhatsApp Чат</span>
@@ -965,6 +1008,7 @@ export default function App() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3.5 py-2 bg-amber-50 hover:bg-amber-100 border border-amber-200/50 text-amber-600 rounded-2xl text-xs font-bold transition-all active:scale-95 shadow-sm"
+                title="Перейти в MAX"
               >
                 <Sparkles className="h-3.5 w-3.5 text-amber-500" />
                 <span>Бот MAX</span>
@@ -974,7 +1018,7 @@ export default function App() {
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
             <p className="font-medium text-center md:text-left">
-              © {new Date().getFullYear()} Express Today Logistics. Лицензия ВЭД №77/12-0941. Прямые автовыходы Шэньчжэнь — Москва.
+              © {new Date().getFullYear()} Express2day Logistics. Лицензия ВЭД №77/12-0941. Прямые автовыходы Шэньчжэнь — Москва.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <a href="#" className="hover:text-slate-800 transition-colors">Политика конфиденциальности</a>
@@ -1015,7 +1059,7 @@ export default function App() {
                     Оформление спецификации
                   </h3>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Заполните контакты. Логисты Express Today рассчитают точную стоимость с учетом таможни и предложат оптимальный вариант.
+                    Заполните контакты. Логисты Express2day рассчитают точную стоимость с учетом таможни и предложат оптимальный вариант.
                   </p>
                 </div>
 
@@ -1037,7 +1081,7 @@ export default function App() {
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
                       placeholder="Иван Иванов"
-                      className="w-full px-4 h-11 text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:border-blue-500 rounded-xl text-slate-800"
+                      className="w-full px-4 h-11 text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 rounded-xl text-slate-800"
                     />
                   </div>
 
@@ -1051,7 +1095,7 @@ export default function App() {
                       value={clientPhone}
                       onChange={(e) => setClientPhone(e.target.value)}
                       placeholder="+7 (999) 000-00-00"
-                      className="w-full px-4 h-11 text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:border-blue-500 rounded-xl text-slate-800 font-mono"
+                      className="w-full px-4 h-11 text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 rounded-xl text-slate-800 font-mono"
                     />
                   </div>
 
@@ -1066,7 +1110,7 @@ export default function App() {
                         value={clientTelegram}
                         onChange={(e) => setClientTelegram(e.target.value)}
                         placeholder="telegram_username"
-                        className="w-full pl-8 pr-4 h-11 text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:border-blue-500 rounded-xl text-slate-800 font-mono"
+                        className="w-full pl-8 pr-4 h-11 text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 rounded-xl text-slate-800 font-mono"
                       />
                     </div>
                   </div>
@@ -1079,7 +1123,7 @@ export default function App() {
 
                 <button
                   type="submit"
-                  className="w-full h-12 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
+                  className="w-full h-12 bg-emerald-800 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
                 >
                   <span>Отправить спецификацию</span>
                   <ArrowRight className="h-4 w-4" />

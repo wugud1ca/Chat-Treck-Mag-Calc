@@ -1,5 +1,5 @@
 {
-  "name": "Express Today — Логистика и ВЭД Китай",
+  "name": "Express2day — Логистика и ВЭД Китай",
   "description": "Интерактивная страница тарифов и калькулятора доставки из Китая с ИИ-Агентом ВЭД и витриной товаров 1688 в стиле Bento Grid.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

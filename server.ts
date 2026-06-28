@@ -22,7 +22,7 @@ const ai = new GoogleGenAI({
 });
 
 // AI VED Agent System Instruction
-const SYSTEM_INSTRUCTION = `Ты — профессиональный ИИ Агент ВЭД (Внешнеэкономической деятельности) и эксперт по логистике компании "Express Today".
+const SYSTEM_INSTRUCTION = `Ты — профессиональный ИИ Агент ВЭД (Внешнеэкономической деятельности) и эксперт по логистике компании "Express2day".
 Твоя цель — консультировать российских предпринимателей и клиентов по вопросам доставки грузов из Китая (карго и белая доставка) и выкупа товаров с китайских платформ (1688, Taobao, Alibaba, Tmall).
 
 Правила твоего общения:
@@ -102,7 +102,7 @@ if (process.env.NODE_ENV !== "production") {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Express Today — Официальный тариф доставки из Китая</title>
+    <title>Express2day — Официальный тариф доставки из Китая</title>
   </head>
   <body>
     <div id="root"></div>
