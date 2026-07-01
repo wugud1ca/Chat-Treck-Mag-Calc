@@ -1,0 +1,22 @@
+# Apache Configuration for PHP Hosting
+# Express2day - React Frontend + PHP API routing
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # 1. Route API Chat requests directly to the api.php script
+    # This allows the React app to fetch /api/chat seamlessly without modifications
+    RewriteRule ^api/chat/?$ api.php [L,QSA]
+    
+    # 2. Support SPA routing fallback:
+    # If the requested file or directory does not exist, send the request to index.php or index.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.html [L]
+</IfModule>
+
+# Prevent viewing of sensitive files (like your .env file containing the Gemini API Key)
+<Files ".env">
+    Order Allow,Deny
+    Deny from all
+</Files>

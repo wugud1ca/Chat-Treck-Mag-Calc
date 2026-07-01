@@ -266,7 +266,7 @@ export default function App() {
         <header className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 bg-white border border-slate-200/80 rounded-[2rem] p-6 shadow-sm">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-emerald-800 border border-amber-500/20 rounded-2xl flex items-center justify-center text-amber-400 font-extrabold text-2xl tracking-tighter shadow-md shadow-emerald-800/10 select-none">
-              E2
+              E2D
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -335,11 +335,11 @@ export default function App() {
             {/* Callback CTA */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
               <a 
-                href="tel:+74951200941" 
-                className="flex items-center justify-center gap-2 px-3 py-2 border border-slate-150 rounded-xl text-xs sm:text-sm font-bold text-slate-800 hover:text-emerald-700 bg-slate-50/50 hover:bg-white transition-all"
+                href="tel:88005559425" 
+                className="flex items-center justify-center gap-2 px-3 py-2 border border-slate-150 rounded-xl text-xs sm:text-sm font-bold text-slate-800 hover:text-emerald-700 bg-slate-50/50 hover:bg-white transition-all whitespace-nowrap"
               >
-                <Phone className="h-3.5 w-3.5 text-slate-500" />
-                <span>+7 (495) 120-09-41</span>
+                <Phone className="h-3.5 w-3.5 text-slate-500 shrink-0" />
+                <span className="whitespace-nowrap">8 (800) 555-94-25</span>
               </a>
               <button 
                 onClick={() => {
@@ -637,7 +637,7 @@ export default function App() {
                       <Truck className="h-5 w-5" />
                     </div>
                     <h3 className="font-bold text-slate-900 text-base font-display">
-                      Трекинг накладных E2
+                      Трекинг накладных E2D
                     </h3>
                   </div>
                   <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider bg-emerald-50 px-2 py-0.5 rounded-full">
@@ -975,12 +975,130 @@ export default function App() {
       </div>
 
       {/* FOOTER */}
-      <footer className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-200">
-        <div className="flex flex-col gap-6">
+      <footer className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 lg:px-8 mt-12 pt-10 border-t border-slate-200 bg-slate-50/50 rounded-t-[2.5rem] p-8 sm:p-10">
+        <div className="flex flex-col gap-8">
+          
+          {/* Main 4-column informational grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-xs text-slate-600 border-b border-slate-200/60 pb-8">
+            
+            {/* Col 1: Contacts */}
+            <div className="flex flex-col gap-3">
+              <h5 className="font-bold text-slate-900 text-sm font-display tracking-tight uppercase text-emerald-800">
+                Контакты
+              </h5>
+              <ul className="flex flex-col gap-2">
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Единый бесплатный номер:</span>
+                  <a href="tel:88005559425" className="font-bold text-slate-800 hover:text-emerald-700 transition-colors text-sm">
+                    8 (800) 555-94-25
+                  </a>
+                </li>
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Московский офис:</span>
+                  <a href="tel:+74951200941" className="font-semibold text-slate-800 hover:text-emerald-700 transition-colors">
+                    +7 (495) 120-09-41
+                  </a>
+                </li>
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Электронная почта:</span>
+                  <a href="mailto:info@express-today.ru" className="font-semibold text-slate-800 hover:text-emerald-700 transition-colors">
+                    info@express-today.ru
+                  </a>
+                </li>
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Режим работы:</span>
+                  <span className="font-medium text-slate-700">Пн - Пт • 09:00 - 19:00 (МСК)</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 2: Addresses & Warehouses */}
+            <div className="flex flex-col gap-3">
+              <h5 className="font-bold text-slate-900 text-sm font-display tracking-tight uppercase text-emerald-800">
+                Адреса и склады
+              </h5>
+              <ul className="flex flex-col gap-2.5">
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Юридический адрес:</span>
+                  <span className="font-medium text-slate-700 leading-relaxed block">
+                    115407, г. Москва, Судостроительная ул., д. 41, пом. IV, ком. 1
+                  </span>
+                </li>
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Центральный склад РФ:</span>
+                  <span className="font-medium text-slate-700 leading-relaxed block">
+                    г. Москва, ул. Рябиновая, д. 26, стр. 2 (теплый терминал)
+                  </span>
+                </li>
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Склады консолидации КНР:</span>
+                  <span className="font-medium text-slate-700 leading-relaxed block">
+                    Гуанчжоу (Байюнь) • Иу (Чоучжоу) • Шэньчжэнь (Баоань)
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 3: Legal Info */}
+            <div className="flex flex-col gap-3">
+              <h5 className="font-bold text-slate-900 text-sm font-display tracking-tight uppercase text-emerald-800">
+                Реквизиты и лицензии
+              </h5>
+              <ul className="flex flex-col gap-2">
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Организация:</span>
+                  <span className="font-bold text-slate-800">ООО «ЭКСПРЕСС ТУДЕЙ»</span>
+                </li>
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">ИНН:</span>
+                  <span className="font-mono text-slate-700">7724491223</span>
+                </li>
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">ОГРН:</span>
+                  <span className="font-mono text-slate-700">1197746624941</span>
+                </li>
+                <li>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Лицензия таможенного представителя:</span>
+                  <span className="font-semibold text-emerald-700">ВЭД №77/12-0941 (ФТС РФ)</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 4: Services */}
+            <div className="flex flex-col gap-3">
+              <h5 className="font-bold text-slate-900 text-sm font-display tracking-tight uppercase text-emerald-800">
+                Услуги Express2day
+              </h5>
+              <ul className="flex flex-col gap-2 text-slate-700 font-medium">
+                <li className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                  <span>Выкуп 1688, Taobao, Alibaba, Tmall</span>
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                  <span>Официальное таможенное оформление</span>
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                  <span>Доставка сборных грузов (LCL) под ключ</span>
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                  <span>Маркировка «Честный Знак» в КНР</span>
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                  <span>Финансовая и юридическая гарантия</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
           {/* Social Links Row in Footer */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-5">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200/60 pb-5">
             <div className="text-slate-800 font-bold text-sm text-center sm:text-left font-display">
-              Наши официальные каналы и поддержка:
+              Наши официальные каналы и оперативная поддержка в мессенджерах:
             </div>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <a 
@@ -1016,16 +1134,20 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-            <p className="font-medium text-center md:text-left">
-              © {new Date().getFullYear()} Express2day Logistics. Лицензия ВЭД №77/12-0941. Прямые автовыходы Шэньчжэнь — Москва.
+          {/* Copyright, disclaimer & legal info */}
+          <div className="flex flex-col gap-4 text-xs text-slate-500">
+            <p className="leading-relaxed text-center sm:text-left">
+              © {new Date().getFullYear()} ООО «ЭКСПРЕСС ТУДЕЙ» под брендом <strong>Express2day Logistics</strong>. Все права защищены. Информация на данном интернет-сайте носит исключительно ознакомительный характер и ни при каких условиях не является публичной офертой, определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации. Расчеты в калькуляторе и рекомендации ИИ-агента являются предварительными и требуют подтверждения со стороны специалистов ВЭД.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <a href="#" className="hover:text-slate-800 transition-colors">Политика конфиденциальности</a>
-              <span className="text-slate-300">|</span>
-              <a href="#" className="hover:text-slate-800 transition-colors">Публичная оферта</a>
-              <span className="text-slate-300">|</span>
-              <span className="font-mono text-[10px]">v2.4.0 • ИИ Агент ВЭД</span>
+            <div className="flex flex-wrap gap-4 justify-center sm:justify-between items-center border-t border-slate-200/40 pt-4">
+              <div className="flex flex-wrap gap-4">
+                <a href="#" className="hover:text-slate-800 transition-colors">Политика конфиденциальности</a>
+                <span className="text-slate-300">|</span>
+                <a href="#" className="hover:text-slate-800 transition-colors">Публичная оферта</a>
+                <span className="text-slate-300">|</span>
+                <a href="#" className="hover:text-slate-800 transition-colors">Пользовательское соглашение</a>
+              </div>
+              <span className="font-mono text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md">v2.5.0 • Лицензия ФТС РФ №77/12-0941 • ИИ Агент ВЭД</span>
             </div>
           </div>
         </div>
