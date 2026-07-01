@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Scale, Box, Shield, ChevronRight, Truck, Info, HelpCircle } from "lucide-react";
+import { Scale, Box, Shield, ChevronRight, Truck, Info, HelpCircle, Train, Ship, Plane } from "lucide-react";
 import { CalculationResult } from "../types";
 
 interface TariffCalculatorProps {
@@ -10,6 +10,7 @@ export default function TariffCalculator({ onSendToChat }: TariffCalculatorProps
   const [weight, setWeight] = useState<number>(120);
   const [volume, setVolume] = useState<number>(0.8);
   const [category, setCategory] = useState<string>("clothing");
+  const [methodId, setMethodId] = useState<string>("fast_auto");
   const [insurance, setInsurance] = useState<boolean>(true);
   const [result, setResult] = useState<CalculationResult | null>(null);
 
@@ -22,39 +23,63 @@ export default function TariffCalculator({ onSendToChat }: TariffCalculatorProps
     { id: "accessories", label: "Аксессуары и сумки", rateMultiplier: 1.1 }
   ];
 
+  // Shipping methods with pricing rules
+  const SHIPPING_METHODS = [
+    {
+      id: "fast_auto",
+      label: "Быстрое Авто (Манчжурия)",
+      baseRatePerKg: 2.2,
+      baseRatePerM3: 350,
+      days: "12-15 дней",
+      description: "Оптимальный баланс цены и сроков доставки"
+    },
+    {
+      id: "railway",
+      label: "Ж/Д Доставка (Прямой поезд)",
+      baseRatePerKg: 1.1,
+      baseRatePerM3: 170,
+      days: "28-35 дней",
+      description: "Надежно для крупных партий и станков"
+    },
+    {
+      id: "sea",
+      label: "Морская доставка (LCL порт РФ)",
+      baseRatePerKg: 0.6,
+      baseRatePerM3: 95,
+      days: "40-48 дней",
+      description: "Максимальная экономия для несрочных грузов"
+    },
+    {
+      id: "air",
+      label: "АВИА Экспресс (Шэньчжэнь)",
+      baseRatePerKg: 5.2,
+      baseRatePerM3: 820,
+      days: "5-8 дней",
+      description: "Сверхбыстрая отправка ценных грузов и образцов"
+    }
+  ];
+
   const calculateTariff = () => {
     // Basic cargo logistics logic: Density = Weight / Volume
     const density = parseFloat((weight / (volume || 0.01)).toFixed(1));
     
-    // Choose route and base price based on density and category
-    // Under 120 kg/m3 cargo is volume-based (объемный груз), above is heavy (плотный груз)
-    let baseRateUsd = 2.2; // Base per kg
-    let route = "Быстрое Авто (Манчжурия)";
-    let deliveryDays = "12-15 дней";
-
     const catMultiplier = CATEGORIES.find(c => c.id === category)?.rateMultiplier || 1.0;
+    const method = SHIPPING_METHODS.find(m => m.id === methodId) || SHIPPING_METHODS[0];
 
-    if (density < 100) {
-      // Volume cargo
-      baseRateUsd = 2.8 * catMultiplier;
-      route = "Медленное Авто (Казахстан)";
-      deliveryDays = "18-22 дня";
-    } else if (density > 250) {
-      // Very heavy cargo - cheaper rate per kg
-      baseRateUsd = 1.6 * catMultiplier;
-      route = "Ж/Д Доставка (Прямой контейнер)";
-      deliveryDays = "28-35 дней";
+    // Under 120 kg/m3 cargo is volume-based (объемный груз), above is heavy (плотный груз)
+    const isVolumeBilling = density < 120;
+    let freightCostUsd = 0;
+
+    if (isVolumeBilling) {
+      freightCostUsd = parseFloat((volume * method.baseRatePerM3 * catMultiplier).toFixed(1));
     } else {
-      baseRateUsd = 2.1 * catMultiplier;
-      route = "Быстрое Авто (Манчжурия)";
-      deliveryDays = "12-15 дней";
+      freightCostUsd = parseFloat((weight * method.baseRatePerKg * catMultiplier).toFixed(1));
     }
 
     // Standard insurance is 1.5% of cargo estimated value (let's assume cargo value is weight * $15)
     const estimatedValueUsd = weight * 15;
     const insuranceCostUsd = insurance ? parseFloat((estimatedValueUsd * 0.015).toFixed(1)) : 0;
     
-    const freightCostUsd = parseFloat((weight * baseRateUsd).toFixed(1));
     const totalCostUsd = parseFloat((freightCostUsd + insuranceCostUsd).toFixed(1));
     
     // Current imaginary but realistic currency rate (1 USD = 92.5 RUB)
@@ -70,14 +95,14 @@ export default function TariffCalculator({ onSendToChat }: TariffCalculatorProps
       freightCostUsd,
       totalCostUsd,
       totalCostRub,
-      route,
-      deliveryDays
+      route: method.label,
+      deliveryDays: method.days
     });
   };
 
   useEffect(() => {
     calculateTariff();
-  }, [weight, volume, category, insurance]);
+  }, [weight, volume, category, insurance, methodId]);
 
   const handleApply = () => {
     if (!result) return;
@@ -202,6 +227,44 @@ export default function TariffCalculator({ onSendToChat }: TariffCalculatorProps
             </div>
           </div>
 
+          {/* Shipping Method Selection */}
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+              Способ и маршрут доставки
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {SHIPPING_METHODS.map((method) => {
+                const IconComponent = 
+                  method.id === "fast_auto" ? Truck :
+                  method.id === "railway" ? Train :
+                  method.id === "sea" ? Ship :
+                  Plane;
+                return (
+                  <button
+                    key={method.id}
+                    onClick={() => setMethodId(method.id)}
+                    className={`p-3 text-left rounded-xl border transition-all flex flex-col justify-between h-[96px] ${
+                      methodId === method.id
+                        ? "border-emerald-600 bg-emerald-50/10 ring-1 ring-emerald-500 font-medium"
+                        : "border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-1.5">
+                        <IconComponent className={`h-4 w-4 ${methodId === method.id ? "text-emerald-600" : "text-slate-400"}`} />
+                        <span className="font-bold text-xs text-slate-950">{method.label.split(" (")[0]}</span>
+                      </div>
+                      <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-full">{method.days}</span>
+                    </div>
+                    <p className="text-[10px] text-slate-500 leading-snug mt-1 line-clamp-2">
+                      {method.description}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Insurance */}
           <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
             <div className="flex items-start gap-3">
@@ -262,7 +325,7 @@ export default function TariffCalculator({ onSendToChat }: TariffCalculatorProps
                 </div>
               </div>
               <div>
-                <div className="text-xs text-slate-400 mb-0.5">Рекомендуемый маршрут</div>
+                <div className="text-xs text-slate-400 mb-0.5">Выбранный маршрут</div>
                 <div className="text-sm font-semibold text-slate-200">
                   {result?.route}
                 </div>
@@ -279,10 +342,16 @@ export default function TariffCalculator({ onSendToChat }: TariffCalculatorProps
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-400 flex items-start gap-2.5 leading-relaxed">
               <Info className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
               <div>
-                Плотность груза <strong className="text-white">{result?.density} кг/м³</strong>. 
-                {result && result.density < 100 
-                  ? " Это объёмный груз. Для оптимизации тарифа рассмотрите уплотнение упаковки или добавление тяжелых товаров." 
-                  : " Отличная плотность для автодоставки! Действует оптимальный весовой тариф."}
+                Плотность вашего груза составляет <strong className="text-white">{result?.density} кг/м³</strong>.{" "}
+                {result && result.density < 120 ? (
+                  <span>
+                    Это считается <strong className="text-white">объемным грузом</strong> (менее 120 кг/м³). Стоимость доставки рассчитывается <strong className="text-emerald-400">по объему (м³)</strong>.
+                  </span>
+                ) : (
+                  <span>
+                    Это считается <strong className="text-white">плотным грузом</strong> (более 120 кг/м³). Стоимость доставки рассчитывается наиболее выгодно — <strong className="text-emerald-400">по весу (кг)</strong>.
+                  </span>
+                )}
               </div>
             </div>
           </div>
