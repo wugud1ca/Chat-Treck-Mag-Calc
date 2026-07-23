@@ -4,7 +4,7 @@ import {
   Truck, FileText, RefreshCw, Sliders, Search, Plus, 
   ShoppingCart, MapPin, ShieldAlert, CheckCircle2, 
   MessageSquare, Lock, ExternalLink, HelpCircle, 
-  ChevronRight, ClipboardCheck, AlertCircle, X, Star
+  ChevronRight, ChevronDown, ChevronUp, ClipboardCheck, AlertCircle, X, Star
 } from "lucide-react";
 import { Message, Product, CalculationResult } from "./types";
 import { PRODUCTS_1688, SUGGESTED_QUESTIONS } from "./data";
@@ -23,6 +23,7 @@ export default function App() {
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [fontSizeMode, setFontSizeMode] = useState<"standard" | "large" | "extra">("standard");
+  const [isFaqOpen, setIsFaqOpen] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   // 1688 Vitrine States
@@ -33,6 +34,7 @@ export default function App() {
 
   // Tracking State
   const [trackNumber, setTrackNumber] = useState("ET-2026-8841");
+  const [isTrackingLoading, setIsTrackingLoading] = useState(false);
   const [trackingResult, setTrackingResult] = useState<any>(null);
   const [trackingError, setTrackingError] = useState("");
 
@@ -55,58 +57,70 @@ export default function App() {
 
   // Handle tracking code search
   const handleTrackSearch = (codeToSearch?: string) => {
-    const code = codeToSearch || trackNumber;
-    if (!code || code.trim().length < 5) {
-      setTrackingError("Введите корректный номер накладной (минимум 5 символов)");
+    const code = (codeToSearch !== undefined ? codeToSearch : trackNumber).trim();
+    if (!code) {
+      setTrackingError("Введите номер накладной для поиска");
       setTrackingResult(null);
       return;
     }
-    setTrackingError("");
-    
-    // Simulate real database logistics steps based on input code
-    const mockSteps = [
-      {
-        title: "Консолидация на складе в Гуанчжоу (КНР)",
-        desc: "Товар получен от поставщика 1688, упакован в деревянную обрешетку, нанесен защитный скотч.",
-        date: "24.06.2026 14:30",
-        completed: true,
-        current: false,
-        icon: "📦"
-      },
-      {
-        title: "Отправка со склада Китая — Пограничный транзит",
-        desc: "Груз загружен в фуру быстрого автовыхода. Направление: МЦПС Хоргос / Маньчжурия.",
-        date: "25.06.2026 09:15",
-        completed: true,
-        current: false,
-        icon: "🚛"
-      },
-      {
-        title: "Таможенная очистка и декларирование",
-        desc: "Пройден импортный контроль. Выпущен под таможенное оформление карго-тарифа.",
-        date: "27.06.2026 17:40",
-        completed: true,
-        current: true,
-        icon: "🛡️"
-      },
-      {
-        title: "Сортировочный хаб Москва (Южные Ворота / Люблино)",
-        desc: "Ожидаемое прибытие груза на главный склад выдачи и распределения по регионам РФ.",
-        date: "Планируется: 03.07.2026",
-        completed: false,
-        current: false,
-        icon: "🏬"
-      }
-    ];
 
-    setTrackingResult({
-      code: code.toUpperCase(),
-      weight: "185 кг",
-      volume: "1.1 м³",
-      route: "Быстрое Авто (Маньчжурия)",
-      status: "В пути (Таможенная очистка)",
-      steps: mockSteps
-    });
+    setIsTrackingLoading(true);
+    setTrackingError("");
+    setTrackingResult(null);
+
+    // Simulated network delay for animated search feel
+    setTimeout(() => {
+      setIsTrackingLoading(false);
+      const normalizedCode = code.toUpperCase().replace(/\s+/g, "");
+
+      if (normalizedCode === "ET-2026-8841" || normalizedCode.includes("8841")) {
+        const mockSteps = [
+          {
+            title: "Консолидация на складе в Гуанчжоу (КНР)",
+            desc: "Товар получен от поставщика 1688, упакован в деревянную обрешетку, нанесен защитный скотч.",
+            date: "24.06.2026 14:30",
+            completed: true,
+            current: false,
+            icon: "📦"
+          },
+          {
+            title: "Отправка со склада Китая — Пограничный транзит",
+            desc: "Груз загружен в фуру быстрого автовыхода. Направление: МЦПС Хоргос / Маньчжурия.",
+            date: "25.06.2026 09:15",
+            completed: true,
+            current: false,
+            icon: "🚛"
+          },
+          {
+            title: "Таможенная очистка и декларирование",
+            desc: "Пройден импортный контроль. Выпущен под таможенное оформление карго-тарифа.",
+            date: "27.06.2026 17:40",
+            completed: true,
+            current: true,
+            icon: "🛡️"
+          },
+          {
+            title: "Сортировочный хаб Москва (Южные Ворота / Люблино)",
+            desc: "Ожидаемое прибытие груза на главный склад выдачи и распределения по регионам РФ.",
+            date: "Планируется: 03.07.2026",
+            completed: false,
+            current: false,
+            icon: "🏬"
+          }
+        ];
+
+        setTrackingResult({
+          code: "ET-2026-8841",
+          weight: "185 кг",
+          volume: "1.1 м³",
+          route: "Быстрое Авто (Маньчжурия)",
+          status: "В пути (Таможенная очистка)",
+          steps: mockSteps
+        });
+      } else {
+        setTrackingError("Текущая накладная не найдена.");
+      }
+    }, 600);
   };
 
   // Initial mock track load
@@ -355,13 +369,13 @@ export default function App() {
         </header>
 
         {/* Bento Grid layout */}
-        <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* LEFT BENTO BLOCK: AI VED Chat (col-span-7 or 8 on large screens) */}
-          <div ref={chatContainerRef} className="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
+          <div ref={chatContainerRef} className="lg:col-span-7 xl:col-span-8 flex flex-col gap-0">
             
             {/* Chat Box Container */}
-            <div className="flex flex-col bg-[#e3eae4] border border-slate-300 rounded-[2rem] sm:rounded-[2.5rem] shadow-sm overflow-hidden h-[600px] sm:h-[680px] lg:h-[720px] transition-all">
+            <div className="flex flex-col bg-[#e3eae4] border border-slate-300 rounded-t-[2rem] sm:rounded-t-[2.5rem] shadow-xs overflow-hidden h-[540px] sm:h-[620px] lg:h-[650px] transition-all">
             
             {/* Chat header: TG style */}
             <div className="p-3.5 sm:p-4 border-b border-slate-200/60 bg-white flex items-center justify-between shadow-sm shrink-0">
@@ -536,98 +550,83 @@ export default function App() {
             </div>
           </div>
 
-          {/* Popular Questions & Customs Inquiries from Last Month */}
-          <div className="bg-white border border-slate-200 rounded-[2rem] p-6 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2.5 bg-emerald-50 rounded-xl text-emerald-800">
-                  <HelpCircle className="h-5 w-5" />
+          {/* Integrated Attached Bottom Drawer: Customs Analytics & FAQ (Expands OUTWARDS) */}
+          <div className="border-x border-b border-slate-300 bg-white rounded-b-[2rem] sm:rounded-b-[2.5rem] shadow-sm transition-all overflow-hidden -mt-px">
+            <button
+              type="button"
+              onClick={() => setIsFaqOpen(!isFaqOpen)}
+              className="w-full flex items-center justify-between gap-3 p-3.5 sm:p-4 text-left cursor-pointer group select-none hover:bg-slate-50/80 transition-colors"
+            >
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="p-2 bg-emerald-50 group-hover:bg-emerald-100 rounded-xl text-emerald-800 transition-colors">
+                  <HelpCircle className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-sm sm:text-base font-display">
-                    Аналитика таможенных запросов за прошлый месяц
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 leading-none mt-1">
-                    Популярные темы обращений в ВЭД-поддержку Express2day
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="font-bold text-slate-900 text-xs sm:text-sm font-display group-hover:text-emerald-800 transition-colors">
+                      Аналитика таможенных запросов за прошлый месяц
+                    </h3>
+                    <span className="px-2 py-0.5 bg-amber-50 border border-amber-200/50 text-amber-700 text-[9px] font-extrabold rounded-full uppercase tracking-wider flex items-center gap-1">
+                      <Sparkles className="h-2.5 w-2.5 text-amber-500 animate-pulse" />
+                      6 горячих тем
+                    </span>
+                  </div>
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
+                    {isFaqOpen ? "Нажмите на нужный вопрос для отправки в ИИ-чат:" : "Нажмите, чтобы выдвинуть частые вопросы клиентов по ВЭД и таможне"}
                   </p>
                 </div>
               </div>
-              <span className="self-start sm:self-center px-2.5 py-1 bg-amber-50 border border-amber-200/40 text-amber-700 text-[9px] sm:text-[10px] font-bold rounded-full uppercase tracking-wider flex items-center gap-1">
-                <Sparkles className="h-3 w-3 text-amber-500 animate-pulse" />
-                Горячие темы
-              </span>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {SUGGESTED_QUESTIONS.map((faq, index) => (
-                <button
-                  key={index}
-                  onClick={() => sendMessage(faq.question)}
-                  className="flex flex-col items-start text-left p-3.5 bg-slate-50 hover:bg-emerald-50/40 border border-slate-150 hover:border-emerald-200/60 rounded-2xl transition-all cursor-pointer group active:scale-[0.98]"
-                >
-                  <div className="flex items-center justify-between w-full mb-2">
-                    <span className={`px-2 py-0.5 rounded text-[9px] font-extrabold tracking-wider uppercase ${
-                      faq.category === 'Таможня' ? 'bg-emerald-100/75 text-emerald-800' :
-                      faq.category === 'Оплата' ? 'bg-amber-100 text-amber-800' :
-                      faq.category === 'Честный Знак' ? 'bg-blue-100 text-blue-800' :
-                      faq.category === 'Выкуп' ? 'bg-orange-100 text-orange-800' :
-                      'bg-purple-100 text-purple-800'
-                    }`}>
-                      {faq.category}
-                    </span>
-                    <span className="text-[10px] font-mono text-slate-400 font-semibold flex items-center gap-1">
-                      🔥 {faq.clicks} запросов
-                    </span>
-                  </div>
-                  <p className="text-xs font-bold text-slate-800 group-hover:text-emerald-800 transition-colors leading-snug line-clamp-2">
-                    {faq.question}
-                  </p>
-                </button>
-              ))}
-            </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="hidden sm:inline text-xs font-bold text-emerald-700 bg-emerald-50 group-hover:bg-emerald-100/80 px-2.5 py-1 rounded-lg transition-colors">
+                  {isFaqOpen ? "Свернуть" : "Выдвинуть вопросы"}
+                </span>
+                <div className="p-1.5 bg-slate-100 group-hover:bg-emerald-100 text-slate-600 group-hover:text-emerald-800 rounded-lg transition-colors">
+                  {isFaqOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                </div>
+              </div>
+            </button>
+
+            {/* Collapsible Questions Grid */}
+            {isFaqOpen && (
+              <div className="p-3.5 sm:p-4 pt-1 border-t border-slate-100 bg-slate-50/50 animate-fadeIn">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {SUGGESTED_QUESTIONS.map((faq, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        sendMessage(faq.question);
+                      }}
+                      className="flex flex-col items-start text-left p-3 bg-white hover:bg-emerald-50/60 border border-slate-200 hover:border-emerald-300 rounded-xl transition-all cursor-pointer group/card active:scale-[0.98] shadow-2xs"
+                    >
+                      <div className="flex items-center justify-between w-full mb-1.5">
+                        <span className={`px-2 py-0.5 rounded text-[8px] sm:text-[9px] font-extrabold tracking-wider uppercase ${
+                          faq.category === 'Таможня' ? 'bg-emerald-100/75 text-emerald-800' :
+                          faq.category === 'Оплата' ? 'bg-amber-100 text-amber-800' :
+                          faq.category === 'Честный Знак' ? 'bg-blue-100 text-blue-800' :
+                          faq.category === 'Выкуп' ? 'bg-orange-100 text-orange-800' :
+                          'bg-purple-100 text-purple-800'
+                        }`}>
+                          {faq.category}
+                        </span>
+                        <span className="text-[9px] font-mono text-slate-400 font-semibold flex items-center gap-1">
+                          🔥 {faq.clicks} запросов
+                        </span>
+                      </div>
+                      <p className="text-xs font-bold text-slate-800 group-hover/card:text-emerald-800 transition-colors leading-snug line-clamp-2">
+                        {faq.question}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-          {/* RIGHT BENTO BLOCK 1: Premium Promo Banner (col-span-4) */}
+          {/* RIGHT BENTO BLOCK: Live Tracking Status & Contact */}
           <section className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6">
             
-            {/* Promo banner: High converting, bright, bento styled */}
-            <div className="bg-orange-500 rounded-[2.5rem] p-6 sm:p-8 text-white relative overflow-hidden shadow-sm flex flex-col justify-between min-h-[220px]">
-              
-              {/* Background graphic */}
-              <div className="absolute -right-8 -bottom-8 opacity-10 transform -rotate-12 select-none pointer-events-none">
-                <Truck size={240} className="text-white" />
-              </div>
-
-              <div>
-                <span className="inline-block px-3 py-1 bg-white/20 text-white text-[10px] font-extrabold rounded-full uppercase tracking-widest mb-4">
-                  Спецпредложение недели
-                </span>
-                <h3 className="text-3xl sm:text-4xl font-extrabold leading-none tracking-tight font-display mb-3">
-                  Карго от<br/>$0.50 / кг
-                </h3>
-                <p className="text-xs sm:text-sm text-orange-50 opacity-90 max-w-[85%] leading-relaxed">
-                  Полная финансовая страховка груза, бесплатная консолидация на складе в Иу и фотоотчет каждой коробки перед отправкой.
-                </p>
-              </div>
-
-              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/20">
-                <div className="text-xs font-mono text-orange-100">
-                  Мин. партия от 20 кг
-                </div>
-                <button 
-                  onClick={() => {
-                    setLeadSource("Спецтариф от $0.50/кг");
-                    setIsLeadModalOpen(true);
-                  }}
-                  className="px-4 py-2.5 bg-white text-orange-600 hover:bg-orange-50 font-extrabold text-xs rounded-xl transition-all shadow-sm flex items-center gap-1.5"
-                >
-                  <span>Закрепить тариф</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </div>
-
             {/* Live Tracking Status Block */}
             <div className="bg-white border border-slate-200 rounded-[2.5rem] p-6 shadow-sm flex flex-col justify-between">
               <div>
@@ -645,31 +644,84 @@ export default function App() {
                   </span>
                 </div>
 
-                <div className="flex flex-col min-[380px]:flex-row gap-2 mb-4">
-                  <input 
-                    type="text" 
-                    value={trackNumber}
-                    onChange={(e) => setTrackNumber(e.target.value)}
-                    placeholder="Например: ET-2026-8841"
-                    className="flex-1 min-w-0 bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 px-4 py-2.5 rounded-xl text-sm font-mono text-slate-800 w-full"
-                  />
-                  <button 
-                    onClick={() => handleTrackSearch()}
-                    className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-colors shrink-0 w-full min-[380px]:w-auto text-center cursor-pointer"
-                  >
-                    Поиск
-                  </button>
-                </div>
+                <form onSubmit={(e) => { e.preventDefault(); handleTrackSearch(); }} className="space-y-2 mb-4">
+                  <div className="flex flex-col min-[380px]:flex-row gap-2">
+                    <input 
+                      type="text" 
+                      value={trackNumber}
+                      onChange={(e) => setTrackNumber(e.target.value)}
+                      placeholder="Например: ET-2026-8841"
+                      className="flex-1 min-w-0 bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 px-4 py-2.5 rounded-xl text-sm font-mono text-slate-800 w-full"
+                    />
+                    <button 
+                      type="submit"
+                      disabled={isTrackingLoading}
+                      className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 disabled:bg-slate-300 text-white font-bold rounded-xl text-xs transition-colors shrink-0 w-full min-[380px]:w-auto flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      {isTrackingLoading ? (
+                        <>
+                          <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                          <span>Поиск...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Search className="h-3.5 w-3.5" />
+                          <span>Поиск</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px] text-slate-400">
+                    <span>Введите код накладной из договора</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setTrackNumber("ET-2026-8841");
+                        handleTrackSearch("ET-2026-8841");
+                      }}
+                      className="text-emerald-700 hover:underline font-mono font-medium"
+                    >
+                      Демо: ET-2026-8841
+                    </button>
+                  </div>
+                </form>
 
-                {trackingError && (
-                  <div className="text-xs text-red-500 mb-3 flex items-center gap-1">
-                    <AlertCircle className="h-3 w-3 shrink-0" />
-                    <span>{trackingError}</span>
+                {/* Animated Loading Indicator */}
+                {isTrackingLoading && (
+                  <div className="p-6 my-3 bg-slate-50 border border-slate-200/80 rounded-2xl text-center space-y-2 animate-pulse">
+                    <RefreshCw className="h-6 w-6 text-emerald-600 animate-spin mx-auto" />
+                    <p className="text-xs font-bold text-slate-700">Запрос данных логистики E2D...</p>
+                    <p className="text-[10px] text-slate-400">Сверяем статус с китайским таможенным сервером</p>
                   </div>
                 )}
 
-                {trackingResult && (
-                  <div className="mt-4 space-y-4">
+                {/* Error State: Track Not Found */}
+                {trackingError && !isTrackingLoading && (
+                  <div className="bg-rose-50/80 border border-rose-200 rounded-2xl p-4 text-xs text-rose-900 space-y-2 my-3 animate-fadeIn">
+                    <div className="flex items-center gap-2 font-bold text-rose-800">
+                      <AlertCircle className="h-4 w-4 text-rose-600 shrink-0" />
+                      <span>{trackingError}</span>
+                    </div>
+                    <p className="text-[11px] text-rose-700 leading-relaxed">
+                      Накладная с таким кодом не зарегистрирована в текущей базе отправлений Express2day.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setTrackNumber("ET-2026-8841");
+                        handleTrackSearch("ET-2026-8841");
+                      }}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-900 font-bold text-[11px] rounded-xl transition-colors cursor-pointer mt-1"
+                    >
+                      <Search className="h-3 w-3 text-rose-700" />
+                      Проверить демо-накладную ET-2026-8841
+                    </button>
+                  </div>
+                )}
+
+                {/* Tracking Result */}
+                {trackingResult && !isTrackingLoading && (
+                  <div className="mt-4 space-y-4 animate-fadeIn">
                     {/* Tiny summary metrics */}
                     <div className="grid grid-cols-3 gap-2 p-3 bg-slate-50 rounded-xl text-center text-[11px] font-medium text-slate-600 border border-slate-100">
                       <div>
@@ -693,7 +745,7 @@ export default function App() {
                           {/* Indicator node */}
                           <div className={`absolute -left-6 top-0.5 w-4 h-4 rounded-full border-2 flex items-center justify-center text-[9px] ${
                             step.completed 
-                              ? "bg-emerald-500 border-emerald-500 text-white" 
+                              ? "bg-emerald-500 border-emerald-500 text-white shadow-sm" 
                               : "bg-white border-slate-200 text-slate-400"
                           }`}>
                             {step.completed ? <Check className="h-2 w-2" /> : "•"}
